@@ -3,17 +3,19 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase";
-import { CATEGORIES } from "@/components/FilterTabs";
 import ImageUploader from "@/components/ImageUploader";
 import toast, { Toaster } from "react-hot-toast";
+import { useCategories } from "@/hooks/useCategories";
 
 export default function AddProject() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [category, setCategory] = useState(CATEGORIES[1]); // Default to first actual category
+  const [category, setCategory] = useState("");
   const [files, setFiles] = useState<File[]>([]);
+  
+  const dbCategories = useCategories();
   const [date, setDate] = useState(() => new Date().toISOString().split('T')[0]);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -103,16 +105,20 @@ export default function AddProject() {
               
               <div>
                 <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">القسم <span className="text-red-500">*</span></label>
-                <select
+                <input
+                  type="text"
+                  list="categories-list"
                   required
                   className="w-full px-4 py-3 border border-gray-200 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#D4A574] bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
-                >
-                  {CATEGORIES.filter(c => c !== "الكل").map(cat => (
-                    <option key={cat} value={cat}>{cat}</option>
+                  placeholder="اختر أو اكتب قسماً جديداً..."
+                />
+                <datalist id="categories-list">
+                  {dbCategories.map(cat => (
+                    <option key={cat} value={cat} />
                   ))}
-                </select>
+                </datalist>
               </div>
             </div>
 
