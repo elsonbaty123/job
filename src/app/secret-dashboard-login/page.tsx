@@ -23,7 +23,8 @@ export default function Login() {
     });
 
     if (error) {
-      setError("بيانات الدخول غير صحيحة");
+      console.error("Login Error:", error);
+      setError(`خطأ: ${error.message} (الكود: ${error.status})`);
       setLoading(false);
     } else {
       router.push("/admin/dashboard");
