@@ -3,7 +3,7 @@ const fs = require('fs');
 
 async function run() {
   const client = new Client({
-    connectionString: 'postgresql://postgres:mariam1994ahmed@@db.qakmysxsmleoemwqmyny.supabase.co:5432/postgres'
+    connectionString: 'postgresql://postgres:mariam1994ahmed%40@db.qakmysxsmleoemwqmyny.supabase.co:5432/postgres'
   });
 
   try {
