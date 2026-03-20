@@ -7,12 +7,12 @@ export function useCategories() {
   useEffect(() => {
     async function fetchCategories() {
       const { data, error } = await supabase
-        .from('projects')
-        .select('category');
+        .from('categories')
+        .select('name')
+        .order('created_at', { ascending: true });
       
       if (!error && data) {
-        const uniqueCategories = Array.from(new Set(data.map(d => d.category).filter(Boolean)));
-        setCategories(uniqueCategories);
+        setCategories(data.map(d => d.name));
       }
     }
     fetchCategories();
