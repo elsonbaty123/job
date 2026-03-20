@@ -15,7 +15,7 @@ export default function Home() {
   const { projects, loading, hasMore, loadMore } = useProjects(activeCategory, searchQuery);
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-white dark:bg-gray-950 transition-colors text-[#2D2D2D] dark:text-white">
       <Navbar />
       
       <HeroSection 
@@ -23,7 +23,7 @@ export default function Home() {
         setSearchQuery={setSearchQuery}
       />
       
-      <div id="gallery" className="bg-white min-h-[50vh] pb-24">
+      <div id="gallery" className="bg-white dark:bg-gray-950 min-h-[50vh] pb-24 transition-colors">
         <FilterTabs 
           activeCategory={activeCategory}
           setActiveCategory={setActiveCategory}
@@ -41,12 +41,12 @@ export default function Home() {
           ) : hasMore ? (
             <button 
               onClick={loadMore}
-              className="px-8 py-3 bg-[#F9E4E4] text-[#D4A574] hover:bg-[#D4A574] hover:text-white rounded-full font-bold transition-colors"
+              className="px-8 py-3 bg-[#F9E4E4] dark:bg-[#D4A574]/20 text-[#D4A574] hover:bg-[#D4A574] hover:text-white rounded-full font-bold transition-colors"
             >
               عرض المزيد
             </button>
           ) : projects.length > 0 ? (
-            <p className="text-gray-400">لقد وصلت لنهاية المعرض ✨</p>
+            <p className="text-gray-400 dark:text-gray-500">لقد وصلت لنهاية المعرض ✨</p>
           ) : null}
         </div>
       </div>

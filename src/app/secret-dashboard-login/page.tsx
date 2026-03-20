@@ -32,29 +32,29 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#F9E4E4] px-4" dir="rtl">
-      <div className="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md">
+    <div className="min-h-screen flex items-center justify-center bg-[#F9E4E4] dark:bg-gray-900 px-4 transition-colors" dir="rtl">
+      <div className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-xl w-full max-w-md">
         <div className="flex justify-center mb-6">
-          <div className="bg-[#F9E4E4] p-4 rounded-full text-[#D4A574]">
+          <div className="bg-[#F9E4E4] dark:bg-gray-700 p-4 rounded-full text-[#D4A574]">
             <Lock className="w-8 h-8" />
           </div>
         </div>
         
-        <h1 className="text-2xl font-bold text-center text-[#2D2D2D] mb-8">تسجيل الدخول للإدارة</h1>
+        <h1 className="text-2xl font-bold text-center text-[#2D2D2D] dark:text-white mb-8">تسجيل الدخول للإدارة</h1>
         
         {error && (
-          <div className="bg-red-50 text-red-600 p-3 rounded-lg text-sm mb-6 text-center">
+          <div className="bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-400 p-3 rounded-lg text-sm mb-6 text-center">
             {error}
           </div>
         )}
 
         <form onSubmit={handleLogin} className="space-y-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">البريد الإلكتروني</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">البريد الإلكتروني</label>
             <input
               type="email"
               required
-              className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#D4A574]"
+              className="w-full px-4 py-3 border border-gray-200 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#D4A574] bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               dir="ltr"
@@ -62,11 +62,11 @@ export default function Login() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">كلمة المرور</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">كلمة المرور</label>
             <input
               type="password"
               required
-              className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#D4A574]"
+              className="w-full px-4 py-3 border border-gray-200 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#D4A574] bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               dir="ltr"

@@ -43,7 +43,7 @@ export default function ImageModal({ project, onClose }: ImageModalProps) {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 md:p-8"
+        className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm"
         onClick={onClose}
       >
         <button
@@ -58,8 +58,9 @@ export default function ImageModal({ project, onClose }: ImageModalProps) {
           animate={{ scale: 1, opacity: 1 }}
           exit={{ scale: 0.95, opacity: 0 }}
           transition={{ type: "spring", damping: 25, stiffness: 300 }}
-          className="relative max-w-5xl w-full bg-white rounded-2xl overflow-hidden shadow-2xl flex flex-col md:flex-row h-auto max-h-[90vh]"
+          className="relative max-w-4xl w-full bg-white dark:bg-gray-900 rounded-2xl overflow-hidden shadow-2xl flex flex-col md:flex-row transition-colors"
           onClick={(e) => e.stopPropagation()}
+          dir="rtl"
         >
           {/* Image Area */}
           <div className="relative w-full md:w-2/3 max-h-[60vh] md:max-h-full min-h-[40vh] bg-gray-100 flex items-center justify-center">
@@ -74,16 +75,16 @@ export default function ImageModal({ project, onClose }: ImageModalProps) {
           </div>
 
           {/* Info Area */}
-          <div className="w-full md:w-1/3 p-6 md:p-8 flex flex-col h-full bg-white overflow-y-auto" dir="rtl">
+          <div className="w-full md:w-1/3 p-6 md:p-8 flex flex-col h-full bg-white dark:bg-gray-900 overflow-y-auto" dir="rtl">
             <div className="mb-4">
-              <span className="inline-block px-3 py-1 bg-[#F9E4E4] text-[#D4A574] rounded-full text-xs font-bold mb-3">
+              <span className="inline-block px-3 py-1 bg-[#F9E4E4] dark:bg-[#D4A574]/20 text-[#D4A574] rounded-full text-xs font-bold mb-3">
                 {project.category}
               </span>
-              <h2 className="text-2xl font-bold text-[#2D2D2D] mb-2">{project.title}</h2>
-              <p className="text-sm text-gray-500 mb-6">{dateStr}</p>
+              <h2 className="text-2xl font-bold text-[#2D2D2D] dark:text-white mb-2">{project.title}</h2>
+              <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">{dateStr}</p>
             </div>
             
-            <div className="prose prose-sm text-gray-700 flex-grow">
+            <div className="prose prose-sm text-gray-700 dark:text-gray-300 flex-grow">
               {project.description ? (
                 <p className="whitespace-pre-wrap">{project.description}</p>
               ) : (

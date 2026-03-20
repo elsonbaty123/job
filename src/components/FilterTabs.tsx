@@ -27,10 +27,11 @@ export default function FilterTabs({ activeCategory, setActiveCategory }: Filter
           <button
             key={category}
             onClick={() => setActiveCategory(category)}
-            className={cn(
-              "relative px-5 py-2 rounded-full text-sm font-medium transition-colors",
-              isActive ? "text-white" : "text-gray-600 hover:bg-gray-100"
-            )}
+            className={`relative whitespace-nowrap px-6 py-2.5 rounded-full font-medium transition-all duration-300 ${
+              activeCategory === category
+                ? 'bg-[#D4A574] text-white shadow-md transform scale-105'
+                : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-[#F9E4E4] dark:hover:bg-gray-700 hover:text-[#D4A574] dark:hover:text-white'
+            }`}
           >
             {isActive && (
               <motion.div

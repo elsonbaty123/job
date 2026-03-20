@@ -22,9 +22,9 @@ export default function AdminSidebar() {
   ];
 
   return (
-    <aside className="w-64 bg-white min-h-screen border-l border-gray-100 flex flex-col pt-6 hidden md:flex">
-      <div className="px-6 mb-8">
-        <h2 className="text-[#2D2D2D] text-xl font-bold">لوحة الإدارة</h2>
+    <aside className="w-64 bg-white dark:bg-gray-900 min-h-screen border-l border-gray-100 dark:border-gray-800 flex flex-col pt-6 hidden md:flex transition-colors">
+      <div className="px-6 mb-8 mt-4">
+        <h2 className="text-[#2D2D2D] dark:text-white text-xl font-bold">لوحة الإدارة</h2>
       </div>
 
       <nav className="flex-1 px-4 space-y-2">
@@ -38,8 +38,8 @@ export default function AdminSidebar() {
               className={cn(
                 "flex items-center gap-3 px-4 py-3 rounded-lg transition-colors font-medium",
                 isActive 
-                  ? "bg-[#F9E4E4] text-[#D4A574]" 
-                  : "text-gray-600 hover:bg-gray-50"
+                  ? "bg-[#F9E4E4] dark:bg-[#D4A574]/20 text-[#D4A574]" 
+                  : "text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800"
               )}
             >
               <Icon className="w-5 h-5" />
@@ -49,10 +49,10 @@ export default function AdminSidebar() {
         })}
       </nav>
 
-      <div className="p-4 border-t border-gray-100">
+      <div className="p-4 border-t border-gray-100 dark:border-gray-800">
         <button
           onClick={handleLogout}
-          className="flex items-center gap-3 px-4 py-3 w-full text-red-500 hover:bg-red-50 rounded-lg transition-colors font-medium"
+          className="flex items-center gap-3 px-4 py-3 w-full text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors font-medium"
         >
           <LogOut className="w-5 h-5" />
           <span>تسجيل خروج</span>

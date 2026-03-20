@@ -1,9 +1,10 @@
 import Link from 'next/link';
 import { Gift } from 'lucide-react';
+import { ThemeToggle } from './ThemeToggle';
 
 export default function Navbar() {
   return (
-    <nav className="fixed w-full z-50 top-0 start-0 bg-white/80 backdrop-blur-md border-b border-[#F9E4E4]">
+    <nav className="fixed w-full z-50 top-0 start-0 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-[#F9E4E4] dark:border-gray-800 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
           <Link href="/" className="flex items-center gap-2">
@@ -11,9 +12,12 @@ export default function Navbar() {
             <span className="text-xl font-bold text-[#2D2D2D]">توزيعاتي</span>
           </Link>
           
-          <div className="hidden md:flex gap-6">
-            <Link href="/" className="text-[#2D2D2D] hover:text-[#D4A574] transition-colors font-medium">الرئيسية</Link>
-            <Link href="#gallery" className="text-[#2D2D2D] hover:text-[#D4A574] transition-colors font-medium">المعرض</Link>
+          <div className="flex items-center gap-4 md:gap-6">
+            <div className="hidden md:flex gap-6">
+              <Link href="/" className="text-[#2D2D2D] dark:text-gray-200 hover:text-[#D4A574] dark:hover:text-[#D4A574] transition-colors font-medium">الرئيسية</Link>
+              <Link href="#gallery" className="text-[#2D2D2D] dark:text-gray-200 hover:text-[#D4A574] dark:hover:text-[#D4A574] transition-colors font-medium">المعرض</Link>
+            </div>
+            <ThemeToggle />
           </div>
         </div>
       </div>
