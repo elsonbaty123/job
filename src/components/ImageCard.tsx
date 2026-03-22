@@ -25,13 +25,13 @@ export default function ImageCard({ project, onClick }: ImageCardProps) {
       className="mb-6 break-inside-avoid relative group cursor-pointer overflow-hidden rounded-2xl bg-gray-100"
       onClick={() => onClick(project)}
     >
-      <div className="relative w-full pt-[120%] sm:pt-[130%]">
+      <div className="relative w-full pt-[160%] sm:pt-[140%]">
         {imageUrl ? (
           <Image
             src={imageUrl}
             alt={project.title}
             fill
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             loading="lazy"
           />
