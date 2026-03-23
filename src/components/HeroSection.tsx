@@ -99,10 +99,30 @@ export default function HeroSection({ searchQuery, setSearchQuery }: HeroSection
                 rx="16"
                 ry="16"
                 fill="none"
-                stroke="url(#borderGradient)"
+                stroke="url(#borderGradientLight)"
                 strokeWidth="2.5"
                 strokeLinecap="round"
                 pathLength="1"
+                className="dark:hidden"
+                style={{
+                  strokeDasharray: 1,
+                  strokeDashoffset: isFocused ? 0 : 1,
+                  transition: 'stroke-dashoffset 0.8s ease-out',
+                }}
+              />
+              <rect
+                x="1"
+                y="1"
+                width="calc(100% - 2px)"
+                height="calc(100% - 2px)"
+                rx="16"
+                ry="16"
+                fill="none"
+                stroke="url(#borderGradientDark)"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                pathLength="1"
+                className="hidden dark:block"
                 style={{
                   strokeDasharray: 1,
                   strokeDashoffset: isFocused ? 0 : 1,
@@ -110,10 +130,17 @@ export default function HeroSection({ searchQuery, setSearchQuery }: HeroSection
                 }}
               />
               <defs>
-                <linearGradient id="borderGradient" x1="100%" y1="0%" x2="0%" y2="0%">
-                  <stop offset="0%" stopColor="#D4A574" />
-                  <stop offset="50%" stopColor="#b0845a" />
-                  <stop offset="100%" stopColor="#D4A574" />
+                {/* Light mode gradient - dark colors for visibility on white */}
+                <linearGradient id="borderGradientLight" x1="100%" y1="0%" x2="0%" y2="0%">
+                  <stop offset="0%" stopColor="#1a1a1a" />
+                  <stop offset="50%" stopColor="#D4A574" />
+                  <stop offset="100%" stopColor="#1a1a1a" />
+                </linearGradient>
+                {/* Dark mode gradient - light colors for visibility on dark */}
+                <linearGradient id="borderGradientDark" x1="100%" y1="0%" x2="0%" y2="0%">
+                  <stop offset="0%" stopColor="#ffffff" />
+                  <stop offset="50%" stopColor="#D4A574" />
+                  <stop offset="100%" stopColor="#ffffff" />
                 </linearGradient>
               </defs>
             </svg>
