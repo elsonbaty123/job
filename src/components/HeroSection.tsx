@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Search, Sparkles, Heart, PartyPopper } from "lucide-react";
 
@@ -9,6 +10,8 @@ interface HeroSectionProps {
 }
 
 export default function HeroSection({ searchQuery, setSearchQuery }: HeroSectionProps) {
+  const [isFocused, setIsFocused] = useState(false);
+
   return (
     <section className="relative pt-28 pb-24 px-4 sm:px-6 lg:px-8 text-center overflow-hidden">
       {/* Background Elements */}
@@ -83,15 +86,28 @@ export default function HeroSection({ searchQuery, setSearchQuery }: HeroSection
         >
           <div className="absolute inset-0 bg-gradient-to-r from-[#D4A574]/20 to-[#b0845a]/20 rounded-2xl blur-xl"></div>
           <div className="relative">
-            <div className="absolute inset-y-0 start-0 pl-5 flex items-center pointer-events-none">
+            {/* Border Animation - fills from right to left */}
+            <div className="absolute inset-0 rounded-2xl overflow-hidden pointer-events-none">
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-l from-[#D4A574] via-[#D4A574] to-transparent"
+                initial={{ x: "-100%" }}
+                animate={{ x: isFocused ? "0%" : "-100%" }}
+                transition={{ duration: 0.5, ease: "easeOut" }}
+                style={{ originX: 1 }}
+              />
+            </div>
+            
+            <div className="absolute inset-y-0 start-0 pl-5 flex items-center pointer-events-none z-10">
               <Search className="h-5 w-5 text-[#D4A574]" />
             </div>
             <input
               type="text"
-              className="block w-full pl-14 pr-6 py-5 border-2 border-gray-200/50 dark:border-gray-700/50 rounded-2xl leading-5 bg-white/90 dark:bg-gray-800/90 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#D4A574] focus:border-transparent sm:text-lg shadow-xl transition-all duration-300"
+              className="relative block w-full pl-14 pr-6 py-5 border-2 border-gray-200/50 dark:border-gray-700/50 rounded-2xl leading-5 bg-white/90 dark:bg-gray-800/90 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none sm:text-lg shadow-xl transition-all duration-300"
               placeholder="ابحث عن تصميمات توزيعات..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
+              onFocus={() => setIsFocused(true)}
+              onBlur={() => setIsFocused(false)}
             />
           </div>
         </motion.div>
