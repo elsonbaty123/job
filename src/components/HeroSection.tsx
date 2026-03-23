@@ -86,30 +86,44 @@ export default function HeroSection({ searchQuery, setSearchQuery }: HeroSection
         >
           <div className="absolute inset-0 bg-gradient-to-r from-[#D4A574]/20 to-[#b0845a]/20 rounded-2xl blur-xl"></div>
           <div className="relative">
-            {/* Animated Border - draws from right to left */}
-            <div className="absolute inset-0 rounded-2xl pointer-events-none overflow-hidden">
-              <motion.div
-                className="absolute inset-0 rounded-2xl"
+            {/* SVG Border Animation - draws outline from right to left */}
+            <svg
+              className="absolute inset-0 w-full h-full pointer-events-none"
+              style={{ overflow: 'visible' }}
+            >
+              <rect
+                x="1"
+                y="1"
+                width="calc(100% - 2px)"
+                height="calc(100% - 2px)"
+                rx="16"
+                ry="16"
+                fill="none"
+                stroke="url(#borderGradient)"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                pathLength="1"
                 style={{
-                  border: '2px solid transparent',
-                  background: 'linear-gradient(#fff, #fff) padding-box, linear-gradient(to left, #D4A574, #b0845a) border-box',
+                  strokeDasharray: 1,
+                  strokeDashoffset: isFocused ? 0 : 1,
+                  transition: 'stroke-dashoffset 0.8s ease-out',
                 }}
-                initial={{ clipPath: 'polygon(100% 0, 100% 0, 100% 100%, 100% 100%)' }}
-                animate={{ 
-                  clipPath: isFocused 
-                    ? 'polygon(0% 0, 100% 0, 100% 100%, 0% 100%)' 
-                    : 'polygon(100% 0, 100% 0, 100% 100%, 100% 100%)' 
-                }}
-                transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
               />
-            </div>
+              <defs>
+                <linearGradient id="borderGradient" x1="100%" y1="0%" x2="0%" y2="0%">
+                  <stop offset="0%" stopColor="#D4A574" />
+                  <stop offset="50%" stopColor="#b0845a" />
+                  <stop offset="100%" stopColor="#D4A574" />
+                </linearGradient>
+              </defs>
+            </svg>
             
             <div className="absolute inset-y-0 start-0 pl-5 flex items-center pointer-events-none z-10">
               <Search className="h-5 w-5 text-[#D4A574]" />
             </div>
             <input
               type="text"
-              className="relative block w-full pl-14 pr-6 py-5 border-2 border-gray-200/50 dark:border-gray-700/50 rounded-2xl leading-5 bg-white/90 dark:bg-gray-800/90 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:border-transparent sm:text-lg shadow-xl transition-all duration-300"
+              className="relative block w-full pl-14 pr-6 py-5 border-2 border-transparent rounded-2xl leading-5 bg-white/90 dark:bg-gray-800/90 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none sm:text-lg shadow-xl transition-all duration-300"
               placeholder="ابحث عن تصميمات توزيعات..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
