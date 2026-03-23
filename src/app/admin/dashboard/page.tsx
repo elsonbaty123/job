@@ -2,9 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
+import { useAuth } from "@/hooks/useAuth";
 import { format } from "date-fns";
 import { ar } from "date-fns/locale";
-import { Trash2, Edit, Eye, EyeOff } from "lucide-react";
+import { Trash2, Edit, Eye, EyeOff, Loader2 } from "lucide-react";
 import type { Project } from "@/components/ImageModal";
 import toast, { Toaster } from "react-hot-toast";
 import Image from "next/image";
@@ -13,6 +14,7 @@ import Link from "next/link";
 export default function AdminDashboard() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
+  const { user, loading: authLoading } = useAuth(true);
 
   const fetchProjects = async () => {
     setLoading(true);
@@ -31,15 +33,22 @@ export default function AdminDashboard() {
   };
 
   useEffect(() => {
-    fetchProjects();
-  }, []);
-
-
+    if (!authLoading && user) {
+      fetchProjects();
+    }
+  }, [user, authLoading]);
 
   const deleteProject = async (id: string) => {
     if (!confirm("هل أنت متأكد من حذف هذا المشروع نهائياً؟")) return;
     
     try {
+      // التحقق من الجلسة
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        toast.error("انتهت الجلسة، يرجى تسجيل الدخول مرة أخرى");
+        return;
+      }
+      
       // 1. Get images to delete from storage
       const { data: images } = await supabase
         .from('project_images')
@@ -51,7 +60,7 @@ export default function AdminDashboard() {
         await supabase.storage.from('project-images').remove(paths);
       }
 
-      // 2. Delete project (images delete on cascade if configured, but let's be explicit)
+      // 2. Delete project
       const { error } = await supabase
         .from('projects')
         .delete()
@@ -91,10 +100,11 @@ export default function AdminDashboard() {
     }
   };
 
-  if (loading) {
+  if (authLoading || loading) {
     return (
-      <div className="flex justify-center items-center h-64">
-        <p className="text-lg text-gray-500 dark:text-gray-400">جاري تحميل المشاريع...</p>
+      <div className="flex flex-col justify-center items-center h-64 gap-3">
+        <Loader2 className="h-8 w-8 animate-spin text-[#D4A574]" />
+        <p className="text-lg text-gray-500 dark:text-gray-400">جاري التحميل...</p>
       </div>
     );
   }
