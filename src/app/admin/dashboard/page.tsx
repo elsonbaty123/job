@@ -69,6 +69,13 @@ export default function AdminDashboard() {
 
   const toggleVisibility = async (id: string, currentStatus: boolean) => {
     try {
+      // التحقق من الجلسة أولاً
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        toast.error("انتهت الجلسة، يرجى تسجيل الدخول مرة أخرى");
+        return;
+      }
+      
       const { error } = await supabase
         .from('projects')
         .update({ is_visible: !currentStatus })
