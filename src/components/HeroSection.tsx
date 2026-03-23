@@ -87,13 +87,19 @@ export default function HeroSection({ searchQuery, setSearchQuery }: HeroSection
           <div className="absolute inset-0 bg-gradient-to-r from-[#D4A574]/20 to-[#b0845a]/20 rounded-2xl blur-xl"></div>
           <div className="relative">
             {/* Border Animation - fills from right to left */}
-            <div className="absolute inset-0 rounded-2xl overflow-hidden pointer-events-none">
+            <div className="absolute inset-0 rounded-2xl pointer-events-none" style={{ padding: '2px' }}>
+              {/* Animated border that fills from right to left */}
               <motion.div
-                className="absolute inset-0 bg-gradient-to-l from-[#D4A574] via-[#D4A574] to-transparent"
-                initial={{ x: "-100%" }}
-                animate={{ x: isFocused ? "0%" : "-100%" }}
+                className="absolute inset-0 rounded-2xl"
+                style={{
+                  background: 'linear-gradient(to left, #D4A574, #b0845a)',
+                  WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+                  WebkitMaskComposite: 'xor',
+                  maskComposite: 'exclude',
+                }}
+                initial={{ clipPath: 'inset(0 100% 0 0)' }}
+                animate={{ clipPath: isFocused ? 'inset(0 0% 0 0)' : 'inset(0 100% 0 0)' }}
                 transition={{ duration: 0.5, ease: "easeOut" }}
-                style={{ originX: 1 }}
               />
             </div>
             
@@ -102,7 +108,7 @@ export default function HeroSection({ searchQuery, setSearchQuery }: HeroSection
             </div>
             <input
               type="text"
-              className="relative block w-full pl-14 pr-6 py-5 border-2 border-gray-200/50 dark:border-gray-700/50 rounded-2xl leading-5 bg-white/90 dark:bg-gray-800/90 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none sm:text-lg shadow-xl transition-all duration-300"
+              className="relative block w-full pl-14 pr-6 py-5 border-2 border-gray-200/50 dark:border-gray-700/50 rounded-2xl leading-5 bg-white/90 dark:bg-gray-800/90 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:border-transparent sm:text-lg shadow-xl transition-all duration-300"
               placeholder="ابحث عن تصميمات توزيعات..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
