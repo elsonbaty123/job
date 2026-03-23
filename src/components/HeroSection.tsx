@@ -91,55 +91,59 @@ export default function HeroSection({ searchQuery, setSearchQuery }: HeroSection
               className="absolute inset-0 w-full h-full pointer-events-none"
               style={{ overflow: 'visible' }}
             >
+              {/* Light mode border - thick, bold, high contrast */}
               <rect
-                x="1"
-                y="1"
-                width="calc(100% - 2px)"
-                height="calc(100% - 2px)"
+                x="2"
+                y="2"
+                width="calc(100% - 4px)"
+                height="calc(100% - 4px)"
                 rx="16"
                 ry="16"
                 fill="none"
                 stroke="url(#borderGradientLight)"
-                strokeWidth="2.5"
+                strokeWidth="3.5"
                 strokeLinecap="round"
                 pathLength="1"
                 className="dark:hidden"
                 style={{
                   strokeDasharray: 1,
                   strokeDashoffset: isFocused ? 0 : 1,
-                  transition: 'stroke-dashoffset 0.8s ease-out',
+                  transition: 'stroke-dashoffset 0.7s cubic-bezier(0.4, 0, 0.2, 1)',
                 }}
               />
+              {/* Dark mode border - thick, bold, high contrast */}
               <rect
-                x="1"
-                y="1"
-                width="calc(100% - 2px)"
-                height="calc(100% - 2px)"
+                x="2"
+                y="2"
+                width="calc(100% - 4px)"
+                height="calc(100% - 4px)"
                 rx="16"
                 ry="16"
                 fill="none"
                 stroke="url(#borderGradientDark)"
-                strokeWidth="2.5"
+                strokeWidth="3.5"
                 strokeLinecap="round"
                 pathLength="1"
                 className="hidden dark:block"
                 style={{
                   strokeDasharray: 1,
                   strokeDashoffset: isFocused ? 0 : 1,
-                  transition: 'stroke-dashoffset 0.8s ease-out',
+                  transition: 'stroke-dashoffset 0.7s cubic-bezier(0.4, 0, 0.2, 1)',
                 }}
               />
               <defs>
-                {/* Light mode gradient - dark colors for visibility on white */}
+                {/* Light mode gradient - bold dark colors */}
                 <linearGradient id="borderGradientLight" x1="100%" y1="0%" x2="0%" y2="0%">
-                  <stop offset="0%" stopColor="#1a1a1a" />
-                  <stop offset="50%" stopColor="#D4A574" />
-                  <stop offset="100%" stopColor="#1a1a1a" />
+                  <stop offset="0%" stopColor="#0f0f0f" />
+                  <stop offset="30%" stopColor="#D4A574" />
+                  <stop offset="70%" stopColor="#c9956a" />
+                  <stop offset="100%" stopColor="#0f0f0f" />
                 </linearGradient>
-                {/* Dark mode gradient - light colors for visibility on dark */}
+                {/* Dark mode gradient - bold bright colors */}
                 <linearGradient id="borderGradientDark" x1="100%" y1="0%" x2="0%" y2="0%">
                   <stop offset="0%" stopColor="#ffffff" />
-                  <stop offset="50%" stopColor="#D4A574" />
+                  <stop offset="30%" stopColor="#D4A574" />
+                  <stop offset="70%" stopColor="#e8c9a8" />
                   <stop offset="100%" stopColor="#ffffff" />
                 </linearGradient>
               </defs>
