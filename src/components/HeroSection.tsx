@@ -86,20 +86,21 @@ export default function HeroSection({ searchQuery, setSearchQuery }: HeroSection
         >
           <div className="absolute inset-0 bg-gradient-to-r from-[#D4A574]/20 to-[#b0845a]/20 rounded-2xl blur-xl"></div>
           <div className="relative">
-            {/* Border Animation - fills from right to left */}
-            <div className="absolute inset-0 rounded-2xl pointer-events-none" style={{ padding: '2px' }}>
-              {/* Animated border that fills from right to left */}
+            {/* Animated Border - draws from right to left */}
+            <div className="absolute inset-0 rounded-2xl pointer-events-none overflow-hidden">
               <motion.div
                 className="absolute inset-0 rounded-2xl"
                 style={{
-                  background: 'linear-gradient(to left, #D4A574, #b0845a)',
-                  WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
-                  WebkitMaskComposite: 'xor',
-                  maskComposite: 'exclude',
+                  border: '2px solid transparent',
+                  background: 'linear-gradient(#fff, #fff) padding-box, linear-gradient(to left, #D4A574, #b0845a) border-box',
                 }}
-                initial={{ clipPath: 'inset(0 100% 0 0)' }}
-                animate={{ clipPath: isFocused ? 'inset(0 0% 0 0)' : 'inset(0 100% 0 0)' }}
-                transition={{ duration: 0.5, ease: "easeOut" }}
+                initial={{ clipPath: 'polygon(100% 0, 100% 0, 100% 100%, 100% 100%)' }}
+                animate={{ 
+                  clipPath: isFocused 
+                    ? 'polygon(0% 0, 100% 0, 100% 100%, 0% 100%)' 
+                    : 'polygon(100% 0, 100% 0, 100% 100%, 100% 100%)' 
+                }}
+                transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
               />
             </div>
             
