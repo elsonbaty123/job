@@ -47,12 +47,11 @@ export default function ImageCard({ project, onClick }: ImageCardProps) {
           <AnimatePresence mode="wait">
             <motion.div
               key={currentIndex}
-              initial={{ opacity: 0, rotateY: 90 }}
-              animate={{ opacity: 1, rotateY: 0 }}
-              exit={{ opacity: 0, rotateY: -90 }}
-              transition={{ duration: 0.5, ease: "easeInOut" }}
+              initial={{ opacity: 0, x: 100 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -100 }}
+              transition={{ duration: 0.4, ease: "easeInOut" }}
               className="w-full"
-              style={{ perspective: 1000 }}
             >
               {currentImage ? (
                 <Image
