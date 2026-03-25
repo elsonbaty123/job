@@ -1,7 +1,8 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import type { Project } from "./ImageModal";
 import { format } from "date-fns";
 import { ar } from "date-fns/locale";
@@ -13,8 +14,22 @@ interface ImageCardProps {
 }
 
 export default function ImageCard({ project, onClick }: ImageCardProps) {
-  const imageUrl = project.project_images?.[0]?.image_url || "/placeholder.jpg";
+  const images = project.project_images || [];
+  const [currentIndex, setCurrentIndex] = useState(0);
   const dateStr = format(new Date(project.created_at), "d MMMM yyyy", { locale: ar });
+
+  // Auto-rotate images every 3 seconds if there are multiple images
+  useEffect(() => {
+    if (images.length <= 1) return;
+    
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % images.length);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [images.length]);
+
+  const currentImage = images[currentIndex]?.image_url || "/placeholder.jpg";
 
   return (
     <motion.div
@@ -29,21 +44,49 @@ export default function ImageCard({ project, onClick }: ImageCardProps) {
       <div className="relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 bg-gray-100 dark:bg-gray-800">
         {/* Image Container */}
         <div className="relative w-full overflow-hidden">
-          {imageUrl ? (
-            <Image
-              src={imageUrl}
-              alt={project.title}
-              width={400}
-              height={600}
-              className="w-full h-auto transition-transform duration-700 group-hover:scale-110"
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-              loading="lazy"
-            />
-          ) : null}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentIndex}
+              initial={{ opacity: 0, rotateY: 90 }}
+              animate={{ opacity: 1, rotateY: 0 }}
+              exit={{ opacity: 0, rotateY: -90 }}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
+              className="w-full"
+              style={{ perspective: 1000 }}
+            >
+              {currentImage ? (
+                <Image
+                  src={currentImage}
+                  alt={project.title}
+                  width={400}
+                  height={600}
+                  className="w-full h-auto transition-transform duration-700 group-hover:scale-110"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  loading="lazy"
+                />
+              ) : null}
+            </motion.div>
+          </AnimatePresence>
           
           {/* Shine Effect */}
           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out"></div>
         </div>
+        
+        {/* Image Dots Indicator */}
+        {images.length > 1 && (
+          <div className="absolute bottom-16 left-1/2 -translate-x-1/2 flex gap-1.5 z-10">
+            {images.map((_, idx) => (
+              <div
+                key={idx}
+                className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                  idx === currentIndex 
+                    ? "bg-white w-4" 
+                    : "bg-white/50"
+                }`}
+              />
+            ))}
+          </div>
+        )}
 
         {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
