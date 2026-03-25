@@ -81,7 +81,7 @@ export default function HeroSection() {
             href="https://wa.me/20109281727"
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-full font-bold shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105'
+            className="group inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-full font-bold shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105"
           >
             <MessageCircle className="w-6 h-6 group-hover:rotate-12 transition-transform duration-300" />
             <span>تواصل معنا عبر واتساب</span>
