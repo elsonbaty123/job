@@ -11,18 +11,14 @@ import { Loader2, Sparkles } from "lucide-react";
 
 export default function Home() {
   const [activeCategory, setActiveCategory] = useState("الكل");
-  const [searchQuery, setSearchQuery] = useState("");
   
-  const { projects, loading, hasMore, loadMore } = useProjects(activeCategory, searchQuery);
+  const { projects, loading, hasMore, loadMore } = useProjects(activeCategory, "");
 
   return (
     <main className="min-h-screen bg-white dark:bg-gray-950 transition-colors duration-500 text-[#2D2D2D] dark:text-white">
       <Navbar />
       
-      <HeroSection 
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-      />
+      <HeroSection />
       
       {/* Gallery Section with fade-up reveal */}
       <motion.div 

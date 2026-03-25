@@ -1,16 +1,9 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
-import { Search, Sparkles, Heart, PartyPopper } from "lucide-react";
+import { Sparkles, Heart, PartyPopper, MessageCircle } from "lucide-react";
 
-interface HeroSectionProps {
-  searchQuery: string;
-  setSearchQuery: (query: string) => void;
-}
-
-export default function HeroSection({ searchQuery, setSearchQuery }: HeroSectionProps) {
-  const [isFocused, setIsFocused] = useState(false);
+export default function HeroSection() {
 
   return (
     <section className="relative pt-28 pb-24 px-4 sm:px-6 lg:px-8 text-center overflow-hidden">
@@ -77,91 +70,22 @@ export default function HeroSection({ searchQuery, setSearchQuery }: HeroSection
           </span>
         </motion.div>
         
-        {/* Search Box */}
-        <motion.div 
-          className="relative max-w-xl mx-auto"
+        {/* WhatsApp Contact Button */}
+        <motion.div
+          className="flex justify-center"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-[#D4A574]/20 to-[#b0845a]/20 rounded-2xl blur-xl"></div>
-          <div className="relative">
-            {/* SVG Border Animation - draws outline from right to left */}
-            <svg
-              className="absolute inset-0 w-full h-full pointer-events-none"
-              style={{ overflow: 'visible' }}
-            >
-              {/* Light mode border - thick, bold, high contrast */}
-              <rect
-                x="2"
-                y="2"
-                width="calc(100% - 4px)"
-                height="calc(100% - 4px)"
-                rx="16"
-                ry="16"
-                fill="none"
-                stroke="url(#borderGradientLight)"
-                strokeWidth="3.5"
-                strokeLinecap="round"
-                pathLength="1"
-                className="dark:hidden"
-                style={{
-                  strokeDasharray: 1,
-                  strokeDashoffset: isFocused ? 0 : 1,
-                  transition: 'stroke-dashoffset 0.7s cubic-bezier(0.4, 0, 0.2, 1)',
-                }}
-              />
-              {/* Dark mode border - thick, bold, high contrast */}
-              <rect
-                x="2"
-                y="2"
-                width="calc(100% - 4px)"
-                height="calc(100% - 4px)"
-                rx="16"
-                ry="16"
-                fill="none"
-                stroke="url(#borderGradientDark)"
-                strokeWidth="3.5"
-                strokeLinecap="round"
-                pathLength="1"
-                className="hidden dark:block"
-                style={{
-                  strokeDasharray: 1,
-                  strokeDashoffset: isFocused ? 0 : 1,
-                  transition: 'stroke-dashoffset 0.7s cubic-bezier(0.4, 0, 0.2, 1)',
-                }}
-              />
-              <defs>
-                {/* Light mode gradient - bold dark colors */}
-                <linearGradient id="borderGradientLight" x1="100%" y1="0%" x2="0%" y2="0%">
-                  <stop offset="0%" stopColor="#0f0f0f" />
-                  <stop offset="30%" stopColor="#D4A574" />
-                  <stop offset="70%" stopColor="#c9956a" />
-                  <stop offset="100%" stopColor="#0f0f0f" />
-                </linearGradient>
-                {/* Dark mode gradient - bold bright colors */}
-                <linearGradient id="borderGradientDark" x1="100%" y1="0%" x2="0%" y2="0%">
-                  <stop offset="0%" stopColor="#ffffff" />
-                  <stop offset="30%" stopColor="#D4A574" />
-                  <stop offset="70%" stopColor="#e8c9a8" />
-                  <stop offset="100%" stopColor="#ffffff" />
-                </linearGradient>
-              </defs>
-            </svg>
-            
-            <div className="absolute inset-y-0 start-0 pl-5 flex items-center pointer-events-none z-10">
-              <Search className="h-5 w-5 text-[#D4A574]" />
-            </div>
-            <input
-              type="text"
-              className="relative block w-full pl-14 pr-6 py-5 border-2 border-transparent rounded-2xl leading-5 bg-white/90 dark:bg-gray-800/90 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none sm:text-lg shadow-xl transition-all duration-300"
-              placeholder="ابحث عن تصميمات توزيعات..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              onFocus={() => setIsFocused(true)}
-              onBlur={() => setIsFocused(false)}
-            />
-          </div>
+          <a
+            href="https://wa.me/20109281727"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-full font-bold shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105'
+          >
+            <MessageCircle className="w-6 h-6 group-hover:rotate-12 transition-transform duration-300" />
+            <span>تواصل معنا عبر واتساب</span>
+          </a>
         </motion.div>
       </div>
     </section>
