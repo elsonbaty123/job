@@ -78,7 +78,7 @@ export default function HeroSection() {
           transition={{ duration: 0.6, delay: 0.3 }}
         >
           <a
-            href="https://wa.me/20109281727"
+            href="https://wa.me/201092891727"
             target="_blank"
             rel="noopener noreferrer"
             className="group inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-full font-bold shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105"
