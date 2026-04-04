@@ -99,21 +99,21 @@ export default function Home() {
               <div className="flex text-[#D4A574] mb-4 text-xl">
                 ★★★★★
               </div>
-              <p className="text-gray-600 dark:text-gray-300 italic mb-4">"توزيعات رائعة جداً، دقة في المواعيد واهتمام بأدق التفاصيل. أنصح الجميع بالتعامل مع موقع توزيعاتي."</p>
+              <p className="text-gray-600 dark:text-gray-300 italic mb-4">&quot;توزيعات رائعة جداً، دقة في المواعيد واهتمام بأدق التفاصيل. أنصح الجميع بالتعامل مع موقع توزيعاتي.&quot;</p>
               <h4 className="font-bold text-[#2D2D2D] dark:text-white">- سارة أحمد</h4>
             </div>
             <div className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
               <div className="flex text-[#D4A574] mb-4 text-xl">
                 ★★★★★
               </div>
-              <p className="text-gray-600 dark:text-gray-300 italic mb-4">"طلبت توزيعات زواجي وكانت أفضل مما تصورت. شكراً لكم على هذا الإبداع الحقيقي!"</p>
+              <p className="text-gray-600 dark:text-gray-300 italic mb-4">&quot;طلبت توزيعات زواجي وكانت أفضل مما تصورت. شكراً لكم على هذا الإبداع الحقيقي!&quot;</p>
               <h4 className="font-bold text-[#2D2D2D] dark:text-white">- خالد منير</h4>
             </div>
             <div className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
               <div className="flex text-[#D4A574] mb-4 text-xl">
                 ★★★★★
               </div>
-              <p className="text-gray-600 dark:text-gray-300 italic mb-4">"شغل مرتب وتغليف فخم يبيض الوجه. تعامل راقي جداً ولن يكون آخر تعامل بإذن الله."</p>
+              <p className="text-gray-600 dark:text-gray-300 italic mb-4">&quot;شغل مرتب وتغليف فخم يبيض الوجه. تعامل راقي جداً ولن يكون آخر تعامل بإذن الله.&quot;</p>
               <h4 className="font-bold text-[#2D2D2D] dark:text-white">- نورة العتيبي</h4>
             </div>
           </div>

@@ -1,5 +1,4 @@
 import Navbar from "@/components/Navbar";
-import Image from "next/image";
 import Link from "next/link";
 import { MessageCircle, Facebook, Instagram } from "lucide-react";
 
