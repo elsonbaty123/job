@@ -85,6 +85,40 @@ export default function Home() {
           </AnimatePresence>
         </div>
       </motion.div>
+
+      {/* Testimonials Section */}
+      <section className="py-16 bg-gray-50 dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 transition-colors" id="testimonials">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-[#2D2D2D] dark:text-white mb-4">قالوا عنا</h2>
+            <p className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">نفخر بثقة عملائنا وكلماتهم الطيبة التي تدفعنا للمزيد من الإبداع</p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
+              <div className="flex text-[#D4A574] mb-4 text-xl">
+                ★★★★★
+              </div>
+              <p className="text-gray-600 dark:text-gray-300 italic mb-4">"توزيعات رائعة جداً، دقة في المواعيد واهتمام بأدق التفاصيل. أنصح الجميع بالتعامل مع موقع توزيعاتي."</p>
+              <h4 className="font-bold text-[#2D2D2D] dark:text-white">- سارة أحمد</h4>
+            </div>
+            <div className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
+              <div className="flex text-[#D4A574] mb-4 text-xl">
+                ★★★★★
+              </div>
+              <p className="text-gray-600 dark:text-gray-300 italic mb-4">"طلبت توزيعات زواجي وكانت أفضل مما تصورت. شكراً لكم على هذا الإبداع الحقيقي!"</p>
+              <h4 className="font-bold text-[#2D2D2D] dark:text-white">- خالد منير</h4>
+            </div>
+            <div className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
+              <div className="flex text-[#D4A574] mb-4 text-xl">
+                ★★★★★
+              </div>
+              <p className="text-gray-600 dark:text-gray-300 italic mb-4">"شغل مرتب وتغليف فخم يبيض الوجه. تعامل راقي جداً ولن يكون آخر تعامل بإذن الله."</p>
+              <h4 className="font-bold text-[#2D2D2D] dark:text-white">- نورة العتيبي</h4>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
   );
 }

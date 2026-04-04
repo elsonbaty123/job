@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { supabase } from "@/lib/supabase";
-import type { Project } from "@/components/ImageModal";
+import type { Project } from "@/components/ProjectDetailModal";
 
 export function useProjects(category: string, searchQuery: string) {
   const [projects, setProjects] = useState<Project[]>([]);

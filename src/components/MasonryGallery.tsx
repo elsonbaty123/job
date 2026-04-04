@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Masonry from "react-masonry-css";
 import ImageCard from "./ImageCard";
-import ImageModal, { type Project } from "./ImageModal";
+import ProjectDetailModal, { type Project } from "./ProjectDetailModal";
 
 interface MasonryGalleryProps {
   projects: Project[];
@@ -44,7 +44,7 @@ export default function MasonryGallery({ projects }: MasonryGalleryProps) {
         ))}
       </Masonry>
 
-      <ImageModal
+      <ProjectDetailModal
         project={selectedProject}
         onClose={() => setSelectedProject(null)}
       />

@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import type { Project } from "./ImageModal";
+import type { Project } from "./ProjectDetailModal";
 import { format } from "date-fns";
 import { ar } from "date-fns/locale";
 import { Eye, Calendar } from "lucide-react";
@@ -30,6 +30,7 @@ export default function ImageCard({ project, onClick }: ImageCardProps) {
   }, [images.length]);
 
   const currentImage = images[currentIndex]?.image_url || "/placeholder.jpg";
+  const isNew = project.created_at && new Date(project.created_at) > new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
 
   return (
     <motion.div
@@ -90,13 +91,24 @@ export default function ImageCard({ project, onClick }: ImageCardProps) {
         {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
 
+        {isNew && (
+          <span className="absolute top-4 right-4 z-10 bg-[#D4A574] text-white text-xs font-bold px-3 py-1 rounded-lg backdrop-blur-sm shadow-lg animate-pulse" dir="rtl">
+            جديد
+          </span>
+        )}
+
         {/* Content Overlay */}
         <div className="absolute inset-0 flex flex-col justify-end p-5 opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-4 group-hover:translate-y-0">
-          {/* Category Badge */}
-          <div className="flex items-center gap-2 mb-3">
+          {/* Category Badge & Price Badge */}
+          <div className="flex items-center gap-2 mb-3 flex-wrap">
             <span className="text-xs font-bold text-white bg-[#D4A574]/90 px-3 py-1.5 rounded-lg backdrop-blur-sm shadow-lg">
               {project.category}
             </span>
+            {(project.price_display || project.price) && (
+              <span className="text-xs font-bold text-white bg-green-500/90 px-3 py-1.5 rounded-lg backdrop-blur-sm shadow-lg">
+                {project.price_display || `${project.price} جنيه`}
+              </span>
+            )}
           </div>
           
           {/* Title */}

@@ -12,6 +12,8 @@ export default function AddProject() {
   const [loading, setLoading] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [price, setPrice] = useState("");
+  const [priceDisplay, setPriceDisplay] = useState("");
   const [category, setCategory] = useState("");
   const [files, setFiles] = useState<File[]>([]);
   
@@ -35,6 +37,8 @@ export default function AddProject() {
         .insert({
           title,
           description,
+          price: price ? parseInt(price) : null,
+          price_display: priceDisplay || null,
           category,
           created_at: new Date(date).toISOString(),
           is_visible: true
@@ -131,6 +135,31 @@ export default function AddProject() {
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="وصف تفصيلي للمشروع..."
               />
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">السعر (أرقام فقط)</label>
+                <input
+                  type="number"
+                  className="w-full px-4 py-3 border border-gray-200 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#D4A574] bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                  value={price}
+                  onChange={(e) => setPrice(e.target.value)}
+                  placeholder="مثال: 50"
+                  min="0"
+                />
+              </div>
+              
+              <div>
+                <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">نص السعر المخصص (اختياري)</label>
+                <input
+                  type="text"
+                  className="w-full px-4 py-3 border border-gray-200 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#D4A574] bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                  value={priceDisplay}
+                  onChange={(e) => setPriceDisplay(e.target.value)}
+                  placeholder="مثال: تبدأ من 50 جنيه"
+                />
+              </div>
             </div>
 
             <div>

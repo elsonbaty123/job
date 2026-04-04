@@ -5,8 +5,8 @@ import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/hooks/useAuth";
 import { format } from "date-fns";
 import { ar } from "date-fns/locale";
-import { Trash2, Edit, Eye, EyeOff, Loader2 } from "lucide-react";
-import type { Project } from "@/components/ImageModal";
+import { Trash2, Edit, Eye, EyeOff, Loader2, Search, Filter, TrendingUp, Package, Eye as ViewIcon, Download } from "lucide-react";
+import type { Project } from "@/components/ProjectDetailModal";
 import toast, { Toaster } from "react-hot-toast";
 import Image from "next/image";
 import Link from "next/link";
@@ -14,6 +14,8 @@ import Link from "next/link";
 export default function AdminDashboard() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filterCategory, setFilterCategory] = useState("الكل");
   const { user, loading: authLoading } = useAuth(true);
 
   const fetchProjects = async () => {
@@ -109,14 +111,108 @@ export default function AdminDashboard() {
     );
   }
 
+  const filteredProjects = projects.filter(p => {
+    const matchesSearch = p.title.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesCategory = filterCategory === "الكل" || p.category === filterCategory;
+    return matchesSearch && matchesCategory;
+  });
+
+  const totalViews = projects.reduce((sum, p) => sum + (p.views || 0), 0);
+  const uniqueCategories = new Set(projects.map(p => p.category)).size;
+
+  const exportToCSV = () => {
+    const headers = ["المعرف,الاسم,القسم,المشاهدات,السعر,تاريخ الإضافة,حالة العرض"];
+    const csvData = projects.map(p => 
+      `"${p.id}","${p.title}","${p.category}","${p.views || 0}","${p.price || 0}","${p.created_at}","${p.is_visible ? 'عام' : 'مخفي'}"`
+    );
+    const blob = new Blob(["\uFEFF" + [...headers, ...csvData].join('\n')], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `projects_export_${new Date().toISOString().split('T')[0]}.csv`;
+    link.click();
+  };
+
   return (
     <>
       <Toaster position="top-center" />
-      <div className="flex justify-between items-center mb-8">
+      <div className="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
         <h1 className="text-3xl font-bold text-[#2D2D2D] dark:text-white">إدارة المشاريع</h1>
-        <span className="bg-[#F9E4E4] dark:bg-[#D4A574]/20 text-[#D4A574] px-4 py-2 rounded-lg font-bold">
-          {projects.length} مشاريع
-        </span>
+        <div className="flex gap-3">
+          <button onClick={exportToCSV} className="flex items-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg font-bold transition-colors">
+            <Download className="w-4 h-4" />
+            تصدير CSV
+          </button>
+          <Link href="/admin/add-project" className="bg-[#D4A574] hover:bg-[#b0845a] text-white px-4 py-2 rounded-lg font-bold transition-colors">
+            إضافة مشروع جديد
+          </Link>
+        </div>
+      </div>
+
+      {/* Stats Panel */}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 flex items-center justify-between">
+          <div>
+            <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">إجمالي المشاريع</p>
+            <h3 className="text-2xl font-bold text-[#2D2D2D] dark:text-white">{projects.length}</h3>
+          </div>
+          <div className="bg-blue-50 dark:bg-blue-900/20 p-3 rounded-lg text-blue-600 dark:text-blue-400">
+            <Package className="w-6 h-6" />
+          </div>
+        </div>
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 flex items-center justify-between">
+          <div>
+            <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">إجمالي الأقسام</p>
+            <h3 className="text-2xl font-bold text-[#2D2D2D] dark:text-white">{uniqueCategories}</h3>
+          </div>
+          <div className="bg-purple-50 dark:bg-purple-900/20 p-3 rounded-lg text-purple-600 dark:text-purple-400">
+            <Filter className="w-6 h-6" />
+          </div>
+        </div>
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 flex items-center justify-between">
+          <div>
+            <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">إجمالي المشاهدات</p>
+            <h3 className="text-2xl font-bold text-[#2D2D2D] dark:text-white">{totalViews}</h3>
+          </div>
+          <div className="bg-green-50 dark:bg-green-900/20 p-3 rounded-lg text-green-600 dark:text-green-400">
+            <ViewIcon className="w-6 h-6" />
+          </div>
+        </div>
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 flex items-center justify-between">
+          <div>
+            <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">الطلبات الجديدة</p>
+            <h3 className="text-2xl font-bold text-[#2D2D2D] dark:text-white">0</h3>
+          </div>
+          <div className="bg-orange-50 dark:bg-orange-900/20 p-3 rounded-lg text-orange-600 dark:text-orange-400">
+            <TrendingUp className="w-6 h-6" />
+          </div>
+        </div>
+      </div>
+
+      {/* Filter and Search */}
+      <div className="flex flex-col md:flex-row gap-4 mb-6">
+        <div className="relative flex-grow">
+          <Search className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5 pointer-events-none" />
+          <input 
+            type="text" 
+            placeholder="البحث باسم المشروع..." 
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full pr-10 pl-4 py-2 border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#D4A574] bg-white dark:bg-gray-800 text-[#2D2D2D] dark:text-white"
+          />
+        </div>
+        <div className="w-full md:w-64">
+          <select
+            value={filterCategory}
+            onChange={(e) => setFilterCategory(e.target.value)}
+            className="w-full px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#D4A574] bg-white dark:bg-gray-800 text-[#2D2D2D] dark:text-white"
+          >
+            <option value="الكل">جميع الأقسام</option>
+            {Array.from(new Set(projects.map(p => p.category))).map(cat => (
+              <option key={cat} value={cat}>{cat}</option>
+            ))}
+          </select>
+        </div>
       </div>
 
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden transition-colors">
@@ -131,15 +227,15 @@ export default function AdminDashboard() {
                 <th className="px-6 py-4 text-left">الإجراءات</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-100">
-              {projects.length === 0 ? (
+            <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
+              {filteredProjects.length === 0 ? (
                 <tr>
                   <td colSpan={5} className="px-6 py-8 text-center text-gray-500">
                     لا توجد مشاريع مضافة حتى الآن.
                   </td>
                 </tr>
               ) : (
-                projects.map((project) => (
+                filteredProjects.map((project) => (
                   <tr key={project.id} className="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors border-b border-gray-50 dark:border-gray-700/50">
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-3">
