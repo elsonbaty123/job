@@ -1,0 +1,10 @@
+{
+  "/_not-found/page": "app/_not-found/page.js",
+  "/page": "app/page.js",
+  "/secret-dashboard-login/page": "app/secret-dashboard-login/page.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/admin/categories/page": "app/admin/categories/page.js",
+  "/admin/dashboard/page": "app/admin/dashboard/page.js",
+  "/admin/edit-project/[id]/page": "app/admin/edit-project/[id]/page.js",
+  "/admin/add-project/page": "app/admin/add-project/page.js"
+}
