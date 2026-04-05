@@ -5,7 +5,7 @@ import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/hooks/useAuth";
 import { format } from "date-fns";
 import { ar } from "date-fns/locale";
-import { Trash2, Edit, Eye, EyeOff, Loader2, Search, Filter, TrendingUp, Package, Eye as ViewIcon, Download } from "lucide-react";
+import { Trash2, Edit, Eye, EyeOff, Loader2, Search, Package, Eye as ViewIcon, Download } from "lucide-react";
 import type { Project } from "@/components/ProjectDetailModal";
 import toast, { Toaster } from "react-hot-toast";
 import Image from "next/image";
@@ -122,7 +122,6 @@ export default function AdminDashboard() {
   });
 
   const totalViews = projects.reduce((sum, p) => sum + (p.views || 0), 0);
-  const uniqueCategories = new Set(projects.map(p => p.category)).size;
 
   const exportToCSV = () => {
     const headers = ["المعرف,الاسم,القسم,المشاهدات,السعر,تاريخ الإضافة,حالة العرض"];

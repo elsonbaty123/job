@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { MessageCircle, Facebook, Instagram, Phone } from "lucide-react";
+import { MessageCircle, Phone } from "lucide-react";
 
 export default function Footer() {
   return (
