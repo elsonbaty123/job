@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
-import { MessageCircle, Facebook, Instagram } from "lucide-react";
+import Image from "next/image";
+import { MessageCircle } from "lucide-react";
 
 export const metadata = {
   title: "من نحن | Twze3at",
@@ -29,9 +30,9 @@ export default function AboutPage() {
           <div className="order-2 md:order-1 flex justify-center">
             <div className="relative w-full max-w-md aspect-square rounded-3xl overflow-hidden shadow-2xl">
               <div className="absolute inset-0 bg-gradient-to-tr from-[#D4A574]/20 to-transparent mix-blend-overlay z-10"></div>
-              {/* Needs a real image in the future, using a solid placeholder or generic for now */}
-              <div className="w-full h-full bg-gray-200 dark:bg-gray-800 flex items-center justify-center">
-                <span className="text-gray-400 font-bold text-2xl">صورة العمل / الورشة</span>
+              {/* Workshop real image */}
+              <div className="w-full h-full absolute inset-0">
+                <Image src="/workshop.png" alt="ورشة عمل توزيعات" fill className="object-cover" />
               </div>
             </div>
           </div>
@@ -44,14 +45,6 @@ export default function AboutPage() {
             <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
               عملنا لا يقتصر فقط على بيع منتج، بل نصنع تجربة فريدة تعبر عنكم في حفلات الزفاف، أعياد الميلاد، واللقاءات العائلية الدافئة.
             </p>
-            <div className="pt-4 flex gap-4">
-               <a href="#" className="flex items-center gap-2 px-5 py-2.5 bg-blue-600 text-white rounded-xl shadow-lg hover:shadow-xl transition-all">
-                  <Facebook className="w-5 h-5"/> فيسبوك
-               </a>
-               <a href="#" className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-xl shadow-lg hover:shadow-xl transition-all">
-                  <Instagram className="w-5 h-5"/> إنستجرام
-               </a>
-            </div>
           </div>
         </section>
         

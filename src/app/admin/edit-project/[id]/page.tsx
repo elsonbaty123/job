@@ -26,6 +26,7 @@ export default function EditProject({ params }: { params: { id: string } }) {
   const [priceDisplay, setPriceDisplay] = useState("");
   const [category, setCategory] = useState("");
   const [isVisible, setIsVisible] = useState(true);
+  const [date, setDate] = useState(() => new Date().toISOString().split('T')[0]);
   
   const [existingImages, setExistingImages] = useState<ProjectImage[]>([]);
   const [files, setFiles] = useState<File[]>([]);
@@ -55,6 +56,7 @@ export default function EditProject({ params }: { params: { id: string } }) {
       setPriceDisplay(data.price_display || "");
       setCategory(data.category);
       setIsVisible(data.is_visible);
+      if (data.created_at) setDate(data.created_at.split('T')[0]);
       setExistingImages(data.project_images || []);
       setFetching(false);
     }
@@ -93,7 +95,8 @@ export default function EditProject({ params }: { params: { id: string } }) {
           price: price ? parseInt(price) : null,
           price_display: priceDisplay || null,
           category,
-          is_visible: isVisible
+          is_visible: isVisible,
+          created_at: new Date(date).toISOString()
         })
         .eq('id', params.id);
 
@@ -227,6 +230,17 @@ export default function EditProject({ params }: { params: { id: string } }) {
                   placeholder="مثال: تبدأ من 50 جنيه"
                 />
               </div>
+            </div>
+            
+            <div>
+              <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">تاريخ المشروع</label>
+              <input
+                type="date"
+                required
+                className="w-full px-4 py-3 border border-gray-200 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#D4A574] bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+              />
             </div>
             
             {/* Images Section */}

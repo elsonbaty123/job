@@ -40,8 +40,6 @@ export default function Footer() {
         <div className="flex flex-col gap-4">
           <h3 className="font-semibold text-lg text-white">تابعنا</h3>
           <div className="flex gap-4">
-            <a href="#" className="bg-gray-800 p-2.5 rounded-full hover:bg-[#D4A574] hover:text-white transition-all transform hover:-translate-y-1"><Facebook className="w-5 h-5"/></a>
-            <a href="#" className="bg-gray-800 p-2.5 rounded-full hover:bg-[#D4A574] hover:text-white transition-all transform hover:-translate-y-1"><Instagram className="w-5 h-5"/></a>
             <a href="https://wa.me/201092891727" target="_blank" rel="noopener noreferrer" className="bg-gray-800 p-2.5 rounded-full hover:bg-[#25D366] hover:text-white transition-all transform hover:-translate-y-1"><MessageCircle className="w-5 h-5"/></a>
           </div>
         </div>

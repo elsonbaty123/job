@@ -10,6 +10,7 @@ import type { Project } from "@/components/ProjectDetailModal";
 import toast, { Toaster } from "react-hot-toast";
 import Image from "next/image";
 import Link from "next/link";
+import { useCategories } from "@/hooks/useCategories";
 
 export default function AdminDashboard() {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -17,6 +18,7 @@ export default function AdminDashboard() {
   const [searchQuery, setSearchQuery] = useState("");
   const [filterCategory, setFilterCategory] = useState("الكل");
   const { user, loading: authLoading } = useAuth(true);
+  const dbCategories = useCategories();
 
   const fetchProjects = async () => {
     setLoading(true);
@@ -112,7 +114,9 @@ export default function AdminDashboard() {
   }
 
   const filteredProjects = projects.filter(p => {
-    const matchesSearch = p.title.toLowerCase().includes(searchQuery.toLowerCase());
+    const titleMatch = p.title ? p.title.toLowerCase().includes(searchQuery.toLowerCase()) : false;
+    const descMatch = p.description ? p.description.toLowerCase().includes(searchQuery.toLowerCase()) : false;
+    const matchesSearch = titleMatch || descMatch;
     const matchesCategory = filterCategory === "الكل" || p.category === filterCategory;
     return matchesSearch && matchesCategory;
   });
@@ -162,11 +166,20 @@ export default function AdminDashboard() {
         </div>
         <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 flex items-center justify-between">
           <div>
-            <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">إجمالي الأقسام</p>
-            <h3 className="text-2xl font-bold text-[#2D2D2D] dark:text-white">{uniqueCategories}</h3>
+            <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">عام (Published)</p>
+            <h3 className="text-2xl font-bold text-[#2D2D2D] dark:text-white">{projects.filter(p => p.is_visible).length}</h3>
           </div>
-          <div className="bg-purple-50 dark:bg-purple-900/20 p-3 rounded-lg text-purple-600 dark:text-purple-400">
-            <Filter className="w-6 h-6" />
+          <div className="bg-green-50 dark:bg-green-900/20 p-3 rounded-lg text-green-600 dark:text-green-400">
+            <Eye className="w-6 h-6" />
+          </div>
+        </div>
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 flex items-center justify-between">
+          <div>
+            <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">مخفي (Hidden)</p>
+            <h3 className="text-2xl font-bold text-[#2D2D2D] dark:text-white">{projects.filter(p => !p.is_visible).length}</h3>
+          </div>
+          <div className="bg-orange-50 dark:bg-orange-900/20 p-3 rounded-lg text-orange-600 dark:text-orange-400">
+            <EyeOff className="w-6 h-6" />
           </div>
         </div>
         <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 flex items-center justify-between">
@@ -174,17 +187,8 @@ export default function AdminDashboard() {
             <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">إجمالي المشاهدات</p>
             <h3 className="text-2xl font-bold text-[#2D2D2D] dark:text-white">{totalViews}</h3>
           </div>
-          <div className="bg-green-50 dark:bg-green-900/20 p-3 rounded-lg text-green-600 dark:text-green-400">
+          <div className="bg-purple-50 dark:bg-purple-900/20 p-3 rounded-lg text-purple-600 dark:text-purple-400">
             <ViewIcon className="w-6 h-6" />
-          </div>
-        </div>
-        <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 flex items-center justify-between">
-          <div>
-            <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">الطلبات الجديدة</p>
-            <h3 className="text-2xl font-bold text-[#2D2D2D] dark:text-white">0</h3>
-          </div>
-          <div className="bg-orange-50 dark:bg-orange-900/20 p-3 rounded-lg text-orange-600 dark:text-orange-400">
-            <TrendingUp className="w-6 h-6" />
           </div>
         </div>
       </div>
@@ -208,7 +212,7 @@ export default function AdminDashboard() {
             className="w-full px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#D4A574] bg-white dark:bg-gray-800 text-[#2D2D2D] dark:text-white"
           >
             <option value="الكل">جميع الأقسام</option>
-            {Array.from(new Set(projects.map(p => p.category))).map(cat => (
+            {dbCategories.map(cat => (
               <option key={cat} value={cat}>{cat}</option>
             ))}
           </select>

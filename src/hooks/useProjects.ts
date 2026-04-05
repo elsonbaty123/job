@@ -12,7 +12,10 @@ export function useProjects(category: string, searchQuery: string) {
 
   const fetchProjects = useCallback(async (reset = false) => {
     try {
-      if (reset) setLoading(true);
+      if (reset) {
+        setLoading(true);
+        setProjects([]);
+      }
       
       let query = supabase
         .from("projects")
