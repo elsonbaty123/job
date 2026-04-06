@@ -37,8 +37,6 @@ export default function AddProject() {
         .insert({
           title,
           description,
-          price: price ? parseInt(price) : null,
-          price_display: priceDisplay || null,
           category,
           created_at: new Date(date).toISOString(),
           is_visible: true

@@ -92,8 +92,6 @@ export default function EditProject({ params }: { params: { id: string } }) {
         .update({
           title,
           description,
-          price: price ? parseInt(price) : null,
-          price_display: priceDisplay || null,
           category,
           is_visible: isVisible,
           created_at: new Date(date).toISOString()

@@ -14,6 +14,10 @@ async function run() {
     
     console.log("Executing phase2_migration.sql...");
     await client.query(sql);
+
+    console.log("Reloading PostgREST schema cache...");
+    await client.query("NOTIFY pgrst, 'reload schema'");
+
     console.log("✅ Phase 2 Schema executed successfully!");
     
   } catch (err) {
